@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "CircleView.h"
+
+
+#define kScreenSize self.view.frame.size
 
 @interface ViewController ()
+@property (nonatomic, strong) CircleView *myCycle;
 
 @end
 
@@ -16,12 +21,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.myCycle = [[CircleView alloc]initWithFrame:CGRectMake(kScreenSize.width/2 - 320/2, kScreenSize.height/2 - 320/2, 320, 320)];
+    self.myCycle.circleLayer.progress = 0.5;
+    [self.view addSubview:self.myCycle];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+//slider值发生改变的时候调用这个方法
+- (IBAction)slider:(UISlider *)sender {
+    NSLog(@"%f",sender.value);
+    
+    self.myCycle.circleLayer.progress = sender.value;
 }
 
 @end
